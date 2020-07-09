@@ -1,9 +1,13 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
 
+let githubUrl='https://api.github.com/users/arianahabas'
+
+const cards = document.querySelector('.cards')
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +53,56 @@ const followersArray = [];
       </div>
     </div>
 */
+const githubUrl='https://api.github.com/users/arianahabas'
+
+function userCardMaker (data){
+  const card = document.createElement('div')
+  const userImg = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const name = document.createElement('h3')
+  const username = document.createElement('p')
+  const userLocation = document.createElement('p')
+  const userProfile = document.createElement('p')
+  const userAddress = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+
+  card.classList.add('card')
+  cardInfo.classList.add('card-info')
+  name.classList.add('name')
+  username.classList.add('username')
+
+  card.appendChild(userImg)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(userLocation)
+  cardInfo.appendChild(userProfile)
+  cardInfo.appendChild(userAddress)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+  userProfile.appendChild(userAddress)
+
+
+  // userImg.src = data.avatar_url
+  // userAddress.href = data.html_url
+
+  // name.textContent = data.name
+  // username.textContent = data.login
+  // location.textContent = data.location
+  // userProfile.textContent = 'Profile:'
+  // followers.textContent = `Followers: ${data.followers}`
+  // following.textContent = `Following: ${data.following}`
+  // bio.textContent =`Bio: ${data.bio}`
+  
+
+  return userCardMaker
+}
+
+console.log(userCardMaker())
+
 
 /*
   List of LS Instructors Github username's:
