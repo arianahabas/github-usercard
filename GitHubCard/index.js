@@ -1,5 +1,5 @@
 import axios from 'axios';
-console.log(axios)
+// console.log(axios)
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -8,16 +8,15 @@ console.log(axios)
 const cards = document.querySelector('.cards')
 const githubUrl='https://api.github.com/users/arianahabas'
 
-axios.get(githubUrl)
-  .then(function(){
-    cards.appendChild(userCardMaker())
-  })
-  .catch(function(){
-    console.log('error')
-  })
+// axios.get(githubUrl)
+//   .then(() => {
+//     console.log('yay')
+//   })
+//   .catch(() => {
+//     console.log('you suck')
+//   })
 
 
-// const cards = document.querySelector('.cards')
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -30,7 +29,13 @@ axios.get(githubUrl)
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
-
+axios.get(githubUrl)
+  .then((response) => {
+    cards.appendChild(userCardMaker(response))
+  })
+  .catch(() => {
+    console.log('you suck')
+  })
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
     follow this link in your browser https://api.github.com/users/<Your github name>/followers,
@@ -42,7 +47,15 @@ axios.get(githubUrl)
     user, and adding that card to the DOM.
 */
 
-// const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
+
+axios.get (followersArray)
+  .then( ()=>{
+
+  })
+  .catch( () => {
+    console.log('you failed again')
+  })
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -63,51 +76,55 @@ axios.get(githubUrl)
       </div>
     </div>
 */
-function userCardMaker (object){
+function userCardMaker (user){
+  //instantiate elements
   const card = document.createElement('div')
   const userImg = document.createElement('img')
   const cardInfo = document.createElement('div')
   const name = document.createElement('h3')
   const username = document.createElement('p')
-  const userLocation = document.createElement('p')
-  const userProfile = document.createElement('p')
-  const userAddress = document.createElement('a')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const profileAddress = document.createElement('a')
   const followers = document.createElement('p')
   const following = document.createElement('p')
   const bio = document.createElement('p')
-
-  card.appendChild(userImg)
-  card.appendChild(cardInfo)
-  cardInfo.appendChild(name)
-  cardInfo.appendChild(username)
-  cardInfo.appendChild(userLocation)
-  cardInfo.appendChild(userProfile)
-  cardInfo.appendChild(userAddress)
-  cardInfo.appendChild(followers)
-  cardInfo.appendChild(following)
-  cardInfo.appendChild(bio)
-  userProfile.appendChild(userAddress)
-
+  //set classes for elements
   card.classList.add('card')
   cardInfo.classList.add('card-info')
   name.classList.add('name')
   username.classList.add('username')
+//add content from user
+  userImg.src = user.data.avatar_url
+  profileAddress.setAttribute('href', user.data.html_url) 
+  profileAddress.textContent = user.data.html_url
+  name.textContent = user.data.name
+  username.textContent = user.data.login
+  location.textContent = `Location: ${user.data.location}`
+  profile.textContent = 'Profile: '
+  followers.textContent = `Followers: ${user.data.followers}`
+  following.textContent = `Following: ${user.data.following}`
+  bio.textContent =`Bio: ${user.data.bio}`
+   //append children- format
+   cards.appendChild(card)
+   card.appendChild(userImg)
+   card.appendChild(cardInfo)
+   cardInfo.appendChild(name)
+   cardInfo.appendChild(username)
+   cardInfo.appendChild(location)
+   cardInfo.appendChild(profile)
+   cardInfo.appendChild(profileAddress)
+   cardInfo.appendChild(followers)
+   cardInfo.appendChild(following)
+   cardInfo.appendChild(bio)
+   profile.appendChild(profileAddress)
+  console.log(location)
+  console.log(name)
 
-
-  // userImg.src = dataObj.data.avatar_url
-  // userAddress.href = dataObj.data.html_url
-  // name.textContent = dataObj.data.name
-  // username.textContent = dataObj.data.login
-  // location.textContent = dataObj.data.location
-  // userProfile.textContent = 'Profile:'
-  // followers.textContent = `Followers: ${dataObj.data.followers}`
-  // following.textContent = `Following: ${dataObj.data.following}`
-  // bio.textContent =`Bio: ${dataObj.data.bio}`
-  
   return card
 }
 
-console.log(userCardMaker())
+
 
 
 /*
